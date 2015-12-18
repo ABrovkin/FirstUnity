@@ -13,6 +13,8 @@ namespace Assets
 
         void Start()
         {
+            Physics.gravity = new Vector3(0, -98f, 0);
+
             _rigidbody = GetComponent<Rigidbody>();
             _ballsCollided = 0;
             CountText.text = "Collides: " + _ballsCollided;
@@ -30,13 +32,11 @@ namespace Assets
                 _rigidbody.AddForce(0, 0, -Speed);
         }
 
-        void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Component other)
         {
-            if (other.gameObject.CompareTag("Ball"))
-            {
-                _ballsCollided++;
-                CountText.text = "Collides: " + _ballsCollided;
-            }
+            if (!other.gameObject.CompareTag("Ball")) return;
+            _ballsCollided++;
+            CountText.text = "Collides: " + _ballsCollided;
         }
     }
 }
